@@ -1,10 +1,20 @@
 Rails.application.routes.draw do
+
+  resources :controllers
+  get 'sessions/new'
+
+  resources :users, only: [:new,:create]
+  get 'signup' => "users#new"
+  get 'edituser' => "users#edit"
   root "static_pages#home"
   get 'static_pages/home'
-
+  get 'profile' => "users#profile"
   get 'static_pages/help'
   get 'home' => 'static_pages#home'
   get 'help' => 'static_pages#help'
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
