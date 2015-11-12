@@ -6,6 +6,13 @@ Rails.application.routes.draw do
   resources :users, only: [:new,:create]
   get 'signup' => "users#new"
   get 'edituser' => "users#edit"
+
+  namespace :admin do
+    resources :users
+    
+  end
+
+
   root "static_pages#home"
   get 'static_pages/home'
   get 'profile' => "users#profile"
