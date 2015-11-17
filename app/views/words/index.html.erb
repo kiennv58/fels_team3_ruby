@@ -1,0 +1,50 @@
+
+<%= form_tag(words_path, method: :get) do %>
+	<div class="filter-category">
+	<select class="form-control" name="category_id">
+			<% @categories.each do |category| %>
+				<option value="<%= category.id %>"><%= category.name %></option>
+			<% end %>
+	</select>
+	</div>
+
+	<div class="filter">
+		<label width="100px">Learned<input type="radio" value="1" name="learned"
+		<% if @filter[:learned] == '1' %>
+			checked='checked'
+		<% end %>
+		></label>
+		<label width="100px">Not learned<input type="radio" value="2" name="learned"
+		<% if @filter[:learned] == '2' %>
+			checked='checked'
+		<% end %>
+		></label>
+		<label width="100px">All<input type="radio" value="3" name="learned" <% if @filter[:learned] == '3' %>
+			checked='checked'
+		<% end %>></label>
+		<div class="actions">
+    	<%= submit_tag "Filter", {class: 'btn btn-primary'} %>
+    	
+    	<button class="btn btn-default">PDF</button>
+  		</div>
+	</div>
+	
+	
+<% end %>
+
+<div>
+<table class="table table-striped">
+<thead>
+	<tr>
+		<th>Vietnamese</th>
+		<th>Japanese</th>
+	</tr>
+</thead>
+<% @words.each do |word| %>
+	<tr>
+		<td><%= word.wordanswers.where(correct: true).first.try(:content) %></td>
+		<td><%= word.try(:content) %></td>
+	</tr>
+<% end %>
+</table>
+</div>

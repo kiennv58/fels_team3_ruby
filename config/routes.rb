@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :controllers
+  get 'words/index'
+
+  resources :lessons
+  resources :sessions
   get 'sessions/new'
 
-  resources :users, only: [:new,:create]
+  resources :users, only: [:index, :new,:create]
   get 'signup' => "users#new"
   get 'edituser' => "users#edit"
 
@@ -11,6 +14,8 @@ Rails.application.routes.draw do
     resources :users
     
   end
+
+  resources :words
 
 
   root "static_pages#home"
@@ -22,8 +27,8 @@ Rails.application.routes.draw do
   get    'login'   => 'sessions#new'
   post   'login'   => 'sessions#create'
   delete 'logout'  => 'sessions#destroy'
-  get 'category' => 'category#home'
-
+  get 'category' => 'category#index'
+  get 'wordlist' => 'category#wordlist'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
